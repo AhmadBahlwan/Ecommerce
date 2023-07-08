@@ -17,7 +17,7 @@
             <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/images/ShopmeAdminSmall.png}">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="topNavbar">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="topNavbar">
@@ -60,10 +60,47 @@
 
     </div>
     <div>
-        <h1>welcome to Shopping Admin Control Panel</h1>
+        <h2>Manage Users</h2>
+        <a th:href="@{/users/new}">Create New User</a>
+    </div>
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
     </div>
 
-    <div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>User Id</th>
+                <th>Photos</th>
+                <th>Emails</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Roles</th>
+                <th>Enabled</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td>[[${user.id}]]</td>
+                <td></td>
+                <td>[[${user.email}]]</td>
+                <td>[[${user.firstName}]]</td>
+                <td>[[${user.lastName}]]</td>
+                <td>[[${user.roles}]]</td>
+                <td>[[${user.enabled}]]</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-success">Edit</button>
+                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="text-center">
         <p>Shopping Control Panel - Copyright &copy;</p>
     </div>
 
