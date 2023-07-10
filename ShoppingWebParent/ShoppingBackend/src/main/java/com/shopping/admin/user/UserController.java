@@ -4,7 +4,9 @@ import com.shopping.library.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +28,7 @@ public class UserController {
         user.setEnabled(true);
         model.addAttribute("user", user);
         model.addAttribute("roles", userService.getRoles());
+        model.addAttribute("pageTitle", "Create New User");
         return "user_form";
     }
 
@@ -37,5 +40,43 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+        try{
+            User user = userService.get(id);
+            model.addAttribute("user", user);
+            model.addAttribute("pageTitle", "Edit User (ID: " + user.getId() + ")");
+            model.addAttribute("roles", userService.getRoles());
+            return "user_form";
+        }catch (UserNotFoundException ex){
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+            return "redirect:/users";
+        }
 
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+        try{
+            userService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "The user with ID "
+                    + id + "has been deleted successfully");
+        }catch (UserNotFoundException ex){
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+        }
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/{id}/enabled/{enabled}")
+    public String updateUserEnabledStatus(@PathVariable Integer id,
+                                          @PathVariable boolean enabled,
+                                          RedirectAttributes redirectAttributes) {
+
+        userService.updateUserEnabledStatus(id, enabled);
+        String status =  enabled ? "enabled" : "disabled";
+        String message = "The user ID " + id + " has been " + status + " successfully";
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/users";
+
+    }
 }

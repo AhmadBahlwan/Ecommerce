@@ -81,4 +81,10 @@ public class UserRepositoryTests {
         assertThat(user).isNotNull();
     }
 
+    @Test
+    public void countByIdTest(){
+        Integer id = 3;
+        assertThat(userRepository.countById(id)).isGreaterThan(0);
+    }
+
 }
