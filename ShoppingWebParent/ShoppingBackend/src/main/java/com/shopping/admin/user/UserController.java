@@ -2,6 +2,7 @@ package com.shopping.admin.user;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.library.entity.User;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -79,7 +80,9 @@ public class UserController {
         }
 
         redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/users";
+
+        String firstPartOfEmail = user.getEmail().split("@")[0];
+        return "redirect:/users/page/1?sortField=id&sortDirection=asc&keyword=" + firstPartOfEmail;
     }
 
     @GetMapping("/users/edit/{id}")
@@ -120,5 +123,23 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/users";
 
+    }
+
+    @GetMapping("/users/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        UserCsvExporter csvExporter = new UserCsvExporter();
+        csvExporter.export(userService.getAll(), response);
+    }
+
+    @GetMapping("/users/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        UserExcelExporter excelExporter = new UserExcelExporter();
+        excelExporter.export(userService.getAll(), response);
+    }
+
+    @GetMapping("/users/export/pdf")
+    public void exportToPdf(HttpServletResponse response) throws IOException {
+        UserPdfExporter pdfExporter = new UserPdfExporter();
+        pdfExporter.export(userService.getAll(), response);
     }
 }
