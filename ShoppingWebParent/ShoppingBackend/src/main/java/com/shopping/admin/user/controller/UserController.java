@@ -1,6 +1,11 @@
-package com.shopping.admin.user;
+package com.shopping.admin.user.controller;
 
 import com.shopping.admin.FileUploadUtil;
+import com.shopping.admin.user.UserNotFoundException;
+import com.shopping.admin.user.UserService;
+import com.shopping.admin.user.export.UserCsvExporter;
+import com.shopping.admin.user.export.UserExcelExporter;
+import com.shopping.admin.user.export.UserPdfExporter;
 import com.shopping.library.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +57,7 @@ public class UserController {
         model.addAttribute("keyword", keyword);
 
 
-        return "users";
+        return "users/users";
     }
 
     @GetMapping("/users/new")
@@ -62,7 +67,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("roles", userService.getRoles());
         model.addAttribute("pageTitle", "Create New User");
-        return "user_form";
+        return "users/user_form";
     }
 
     @PostMapping("/users/save")

@@ -1,5 +1,6 @@
-package com.shopping.admin.user;
+package com.shopping.admin.user.export;
 
+import com.shopping.admin.user.export.AbstractExporter;
 import com.shopping.library.entity.User;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,7 +10,7 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.IOException;
 import java.util.List;
 
-public class UserExcelExporter extends AbstractExporter{
+public class UserExcelExporter extends AbstractExporter {
 
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
