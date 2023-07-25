@@ -2,6 +2,7 @@ package com.shopping.admin.category;
 
 
 import com.shopping.admin.FileUploadUtil;
+import com.shopping.admin.user.UserService;
 import com.shopping.library.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -24,14 +25,42 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public String getAll(@Param("sortDir") String sortDir, Model model) {
-        if (sortDir == null || sortDir.isEmpty()) {
-            sortDir = "asc";
+    public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+        return listByPage(1, sortDir, model);
+    }
+
+    @GetMapping("/categories/page/{pageNumber}")
+    public String listByPage(@PathVariable("pageNumber") int pageNumber,
+                             @Param("sortDirection") String sortDirection, Model model) {
+
+        if (sortDirection == null || sortDirection.isEmpty()) {
+            sortDirection = "asc";
         }
 
-        model.addAttribute("categories", categoryService.getAll(sortDir));
-        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+        CategoryPageInfo pageInfo = new CategoryPageInfo();
+
+        String reverseSortDir = sortDirection.equals("asc") ? "desc" : "asc";
+
+
+
+        model.addAttribute("categories", categoryService.listByPage(pageInfo, pageNumber, sortDirection));
+
+        long startCount = (long) (pageNumber - 1) * CategoryService.ROOT_CATEGORIES_PER_PAGE + 1;
+        long endCount = startCount + CategoryService.ROOT_CATEGORIES_PER_PAGE  - 1;
+        if (endCount > pageInfo.getTotalElements())
+            endCount = pageInfo.getTotalElements();
+
+
         model.addAttribute("reverseSortDir", reverseSortDir);
+
+        model.addAttribute("totalPages", pageInfo.getTotalPages());
+        model.addAttribute("totalElements", pageInfo.getTotalElements());
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("sortField", "name");
+        model.addAttribute("sortDirection", sortDirection);
+
         return "categories/categories";
     }
 

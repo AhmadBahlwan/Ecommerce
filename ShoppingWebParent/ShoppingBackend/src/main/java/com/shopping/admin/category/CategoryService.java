@@ -1,9 +1,10 @@
 package com.shopping.admin.category;
 
-import com.shopping.admin.user.UserNotFoundException;
 import com.shopping.library.entity.Category;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,22 @@ import java.util.*;
 @Service
 @Transactional
 public class CategoryService {
+    public static final int ROOT_CATEGORIES_PER_PAGE = 4;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAll(String sortDir){
+    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNumber, String sortDir){
         Sort sort = Sort.by("name");
 
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-        return listHierarchicalCategories(categoryRepository.findRootCategories(sort), sortDir);
+        Page<Category> pageCategories = categoryRepository.findRootCategories(PageRequest.of(pageNumber - 1, ROOT_CATEGORIES_PER_PAGE, sort));
+        List<Category> rootCategories = pageCategories.getContent();
+
+        pageInfo.setTotalPages(pageCategories.getTotalPages());
+        pageInfo.setTotalElements(pageCategories.getTotalElements());
+        return listHierarchicalCategories(rootCategories, sortDir);
     }
 
     private List<Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir) {
