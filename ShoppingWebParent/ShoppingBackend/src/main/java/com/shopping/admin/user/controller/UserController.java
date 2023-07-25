@@ -77,7 +77,7 @@ public class UserController {
             user.setPhotos(fileName);
             User savedUser = userService.save(user);
             String uploadDir = "user-photos/" + savedUser.getId();
-            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.cleanDirectory(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, image);
         } else {
             if (user.getPhotos().isEmpty()) user.setPhotos(null);
@@ -97,7 +97,7 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Edit User (ID: " + user.getId() + ")");
             model.addAttribute("roles", userService.getRoles());
-            return "user_form";
+            return "users/user_form";
         }catch (UserNotFoundException ex){
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/users";

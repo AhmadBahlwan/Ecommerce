@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import java.util.Arrays;
 
 @SpringBootApplication
-@EntityScan({"com.shopping.library.entity", "com.shopping.admin.user"})
+@EntityScan({"com.shopping.library.entity", "com.shopping.admin.user", "com.shopping.admin.category"})
 public class ShoppingBackendApplication {
 
 	public static void main(String[] args) {

@@ -42,7 +42,7 @@ public class AccountController {
             user.setPhotos(fileName);
             User savedUser = userService.updateAccount(user);
             String uploadDir = "user-photos/" + savedUser.getId();
-            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.cleanDirectory(uploadDir);
             FileUploadUtil.saveFile(uploadDir, fileName, image);
         } else {
             if (user.getPhotos().isEmpty()) user.setPhotos(null);

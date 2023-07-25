@@ -28,7 +28,7 @@ public class FileUploadUtil {
         }
     }
 
-    public static void cleanDir(String dir) {
+    public static void cleanDirectory(String dir) {
         Path dirPath = Paths.get(dir);
         try {
             Files.list(dirPath).forEach(file -> {
@@ -43,6 +43,15 @@ public class FileUploadUtil {
             });
         } catch (IOException e) {
             LOGGER.error("Could not list directory: " + dirPath);
+        }
+    }
+
+    public static void removeDirectory(String directory) {
+        cleanDirectory(directory);
+        try {
+            Files.delete(Paths.get(directory));
+        }catch (IOException e) {
+            LOGGER.error("Could not remove directory: " + directory);
         }
     }
 }
