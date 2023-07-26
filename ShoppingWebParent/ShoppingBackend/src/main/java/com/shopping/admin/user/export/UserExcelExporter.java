@@ -1,6 +1,6 @@
 package com.shopping.admin.user.export;
 
-import com.shopping.admin.user.export.AbstractExporter;
+import com.shopping.admin.AbstractExporter;
 import com.shopping.library.entity.User;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,7 +46,7 @@ public class UserExcelExporter extends AbstractExporter {
         cell.setCellStyle(style);
     }
     public void export(List<User> users, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response, "application/octet-stream", ".xlsx");
+        super.setResponseHeader(response, "application/octet-stream", ".xlsx", "users_");
 
         writeHeaderLine();
         writeDataLines(users);

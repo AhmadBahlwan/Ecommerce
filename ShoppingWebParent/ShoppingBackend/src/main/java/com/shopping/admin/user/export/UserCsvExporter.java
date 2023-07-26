@@ -1,6 +1,6 @@
 package com.shopping.admin.user.export;
 
-import com.shopping.admin.user.export.AbstractExporter;
+import com.shopping.admin.AbstractExporter;
 import com.shopping.library.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.supercsv.io.CsvBeanWriter;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserCsvExporter extends AbstractExporter {
 
     public void export(List<User> users, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response, "text/csv", ".csv");
+        super.setResponseHeader(response, "text/csv", ".csv", "users_");
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
 
