@@ -67,14 +67,14 @@
 </div>
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
-    moduleURL = "[[@{/categories}]]";
+        moduleURL = "[[@{/categories}]]";
 
-    $(document).ready(function(){
-       $(".link-delete").on("click", function(e){
-          e.preventDefault();
-          showDeleteConfirmModal($(this), 'category');
-       });
-    });
+        $(document).ready(function() {
+		       $(".link-delete").on("click", function(e) {
+			          e.preventDefault();
+			          showDeleteConfirmModal($(this), 'category');
+		       });
+	    });
 </script>
 </body>
 </html>
