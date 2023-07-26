@@ -15,20 +15,7 @@
     [[${message}]]
   </div>
 
-  <div class="input-group">
-    <form th:action="@{/categories/page/1}" class="form-inline m-3 d-flex">
-      <label class="col-form-label m-1">Filter:</label>
-      <input type="search" name="keyword" th:value="${keyword}" class="form-control rounded" placeholder="Search" required/>
-      &nbsp;&nbsp;
-      <button type="submit" value="Search" class="btn btn-primary">
-        <i class="fas fa-search"></i>
-      </button>
-      &nbsp;&nbsp;
-      <button type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()">
-        <i class="fas fa-eraser"></i>
-      </button>
-    </form>
-  </div>
+  <div th:replace="fragments :: search_form('/categories/page/1')"></div>
 
   <div class="table-responsive full-details">
     <table class="table table-bordered table-striped table-hover">
@@ -37,7 +24,7 @@
         <th>ID</th>
         <th>Category Image</th>
         <th>
-          <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDirection=' + ${reverseSortDir}}">Category Name</a>
+          <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDirection=' + ${reverseSortDir}} + ${keyword != null ? '&keyword=' + keyword : ''}">Category Name</a>
           <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
         </th>
         <th>Alias</th>
@@ -65,8 +52,14 @@
     </table>
   </div>
 
-  <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
+  <div th:if="${keyword != null}" class="text-center">
+    <span>Search result does not show categories in hierarchical form</span>
+    <div th:replace="fragments :: pagination('/categories', 'categories')"></div>
+  </div>
 
+  <th:block th:unless="${keyword != null}">
+    <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
+  </th:block>
   <div th:replace="modal_fragment :: confirm_modal"></div>
 
   <div th:replace="fragments :: footer"></div>

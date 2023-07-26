@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,32 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNumber, String sortDir){
+    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNumber, String sortDir, String keyword){
         Sort sort = Sort.by("name");
 
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-        Page<Category> pageCategories = categoryRepository.findRootCategories(PageRequest.of(pageNumber - 1, ROOT_CATEGORIES_PER_PAGE, sort));
+        Pageable pageable = PageRequest.of(pageNumber - 1, ROOT_CATEGORIES_PER_PAGE, sort);
+
+        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+
+        Page<Category> pageCategories = hasKeyword ? categoryRepository.search(keyword, pageable)
+                : categoryRepository.findRootCategories(pageable);
+
         List<Category> rootCategories = pageCategories.getContent();
 
         pageInfo.setTotalPages(pageCategories.getTotalPages());
         pageInfo.setTotalElements(pageCategories.getTotalElements());
-        return listHierarchicalCategories(rootCategories, sortDir);
+
+        if (hasKeyword) {
+            List<Category> searchResult = pageCategories.getContent();
+            for (Category category: searchResult) {
+                category.setHasChildren(category.getChildren().size() > 0);
+            }
+            return searchResult;
+        } else {
+            return listHierarchicalCategories(rootCategories, sortDir);
+        }
     }
 
     private List<Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir) {
