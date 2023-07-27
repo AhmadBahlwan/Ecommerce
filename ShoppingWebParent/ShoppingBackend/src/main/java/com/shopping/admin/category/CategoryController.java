@@ -42,7 +42,7 @@ public class CategoryController {
 
         CategoryPageInfo pageInfo = new CategoryPageInfo();
 
-        String reverseSortDir = sortDirection.equals("asc") ? "desc" : "asc";
+        String reversedSortDir = sortDirection.equals("asc") ? "desc" : "asc";
 
 
 
@@ -54,7 +54,7 @@ public class CategoryController {
             endCount = pageInfo.getTotalElements();
 
 
-        model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("reversedSortDir", reversedSortDir);
 
         model.addAttribute("totalPages", pageInfo.getTotalPages());
         model.addAttribute("totalElements", pageInfo.getTotalElements());
