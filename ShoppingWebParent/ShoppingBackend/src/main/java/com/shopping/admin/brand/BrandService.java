@@ -38,5 +38,16 @@ public class BrandService {
         brandRepository.deleteById(id);
     }
 
+    public boolean isNameUnique(Integer id, String name) {
+        Brand brand = brandRepository.findByName(name);
+
+        if (id == null) {
+            return brand == null;
+        }
+
+        return brand == null || brand.getId().equals(id);
+    }
+
+
 
 }
