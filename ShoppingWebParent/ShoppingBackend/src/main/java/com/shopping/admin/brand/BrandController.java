@@ -2,9 +2,11 @@ package com.shopping.admin.brand;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.admin.category.CategoryService;
+import com.shopping.admin.user.UserService;
 import com.shopping.library.entity.Brand;
 import com.shopping.library.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +29,34 @@ public class BrandController {
     @Autowired
     private CategoryService categoryService;
 
+
     @GetMapping("/brands")
-    public String listAll(Model model) {
-        List<Brand> brands = brandService.listAll();
+    public String listFirstPage(Model model) {
+        return listByPage(1, model, "name", "asc", null);
+    }
+
+    @GetMapping("/brands/page/{pageNumber}")
+    public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
+                             @Param("sortDirection") String sortDirection, @Param("keyword") String keyword) {
+        Page<Brand> page = brandService.listByPage(pageNumber, sortField, sortDirection, keyword);
+        List<Brand> brands = page.getContent();
+        long startCount = (long) (pageNumber - 1) * BrandService.BRANDS_PER_PAGE + 1;
+        long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1;
+        if (endCount > page.getTotalElements())
+            endCount = page.getTotalElements();
+
+        String reversedSortDir = sortDirection.equals("asc") ? "desc" : "asc";
+
         model.addAttribute("brands", brands);
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("reversedSortDir", reversedSortDir);
+        model.addAttribute("keyword", keyword);
 
         return "brands/brands";
     }
