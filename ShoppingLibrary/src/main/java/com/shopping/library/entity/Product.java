@@ -29,22 +29,22 @@ public class Product {
     @Column(name = "updated_time")
     private Date updatedTime;
 
-    private boolean enabled;
+    private boolean enabled = false;
 
-    @Column(name = "in_stock")
+    @Column(name = "in_stock", columnDefinition = "boolean default false")
     private boolean inStock;
 
-    private float cost;
+    private float cost = 0;
 
-    private float price;
+    private float price = 0;
 
-    @Column(name = "discount_percent")
+    @Column(name = "discount_percent", columnDefinition = "int default 0")
     private float discountPercent;
 
-    private float length;
-    private float width;
-    private float height;
-    private float weight;
+    private float length = 0;
+    private float width = 0;
+    private float height = 0;
+    private float weight = 0;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -196,6 +196,11 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + "]";
     }
 
 }
