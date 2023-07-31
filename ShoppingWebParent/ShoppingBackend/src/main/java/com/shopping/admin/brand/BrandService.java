@@ -18,6 +18,10 @@ public class BrandService {
     @Autowired
     private BrandRepository brandRepository;
 
+    public List<Brand> listAll() {
+        return brandRepository.findAll();
+    }
+
     public Page<Brand> listByPage(int pageNumber, String sortField, String sortDirection, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDirection.equals("asc") ? sort.ascending() : sort.descending();
