@@ -15,6 +15,7 @@ public class MvcConfig implements WebMvcConfigurer {
         configureResourceHandler(registry, "user-photos");
         configureResourceHandler(registry, "category-images");
         configureResourceHandler(registry, "brand-logos");
+        configureResourceHandler(registry, "product-images");
     }
 
     private void configureResourceHandler(ResourceHandlerRegistry registry, String resourceName) {
