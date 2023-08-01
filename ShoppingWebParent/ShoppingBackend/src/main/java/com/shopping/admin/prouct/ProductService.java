@@ -1,5 +1,6 @@
 package com.shopping.admin.prouct;
 
+import com.shopping.library.entity.Brand;
 import com.shopping.library.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,15 @@ public class ProductService {
         product.setUpdatedTime(new Date());
 
         return productRepository.save(product);
+    }
+
+    public boolean isNameUnique(Integer id, String name) {
+        Product product = productRepository.findByName(name);
+
+        if (id == null) {
+            return product == null;
+        }
+
+        return product == null || product.getId().equals(id);
     }
 }
