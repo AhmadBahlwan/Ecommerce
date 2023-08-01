@@ -14,4 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
     void updateEnabledStatus(Integer id, boolean enabled);
 
+    Long countById(Integer id);
+
 }

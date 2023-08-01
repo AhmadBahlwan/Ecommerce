@@ -1,5 +1,7 @@
 package com.shopping.admin.prouct;
 
+import com.shopping.admin.FileUploadUtil;
+import com.shopping.admin.brand.BrandNotFoundException;
 import com.shopping.admin.brand.BrandService;
 import com.shopping.library.entity.Brand;
 import com.shopping.library.entity.Product;
@@ -64,5 +66,20 @@ public class ProductController {
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/products";
 
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteBrand(@PathVariable(name = "id") Integer id,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            productService.delete(id);
+
+            redirectAttributes.addFlashAttribute("message",
+                    "The product ID " + id + " has been deleted successfully");
+        } catch (ProductNotFoundException ex) {
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+        }
+
+        return "redirect:/products";
     }
 }
