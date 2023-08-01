@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -50,5 +51,18 @@ public class ProductController {
         ra.addFlashAttribute("message", "The product has been saved successfully.");
 
         return "redirect:/products";
+    }
+
+    @GetMapping("/products/{id}/enabled/{enabled}")
+    public String updateProductEnabledStatus(@PathVariable Integer id,
+                                             @PathVariable boolean enabled,
+                                             RedirectAttributes redirectAttributes) {
+
+        productService.updateProductEnabledStatus(id, enabled);
+        String status =  enabled ? "enabled" : "disabled";
+        String message = "The product ID " + id + " has been " + status + " successfully";
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/products";
+
     }
 }

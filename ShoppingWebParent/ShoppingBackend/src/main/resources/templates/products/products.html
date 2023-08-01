@@ -10,9 +10,10 @@
     &nbsp;&nbsp;
     <a th:href="@{/products/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
   </div>
-  <div th:replace="fragments :: message"></div>
 
   <div th:replace="fragments :: search_form_and_message('/products/page/1')"></div>
+
+  <div th:replace="fragments :: message"></div>
 
   <div class="table-responsive full-details">
     <table class="table table-bordered table-striped table-hover">
@@ -35,7 +36,9 @@
         <td>[[${product.name}]]</td>
         <td>[[${product.brand.name}]]</td>
         <td>[[${product.category.name}]]</td>
-        <td>[[${product.enabled}]]</td>
+        <td>
+          <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
+        </td>
         <td>
           <a class="fas fa-file-alt fa-2x icon-green"
              th:href="@{'/products/detail/' + ${product.id}}"

@@ -1,7 +1,7 @@
 package com.shopping.admin.prouct;
 
-import com.shopping.library.entity.Brand;
 import com.shopping.library.entity.Product;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductService {
 
     @Autowired
@@ -44,5 +45,9 @@ public class ProductService {
         }
 
         return product == null || product.getId().equals(id);
+    }
+
+    public void updateProductEnabledStatus(Integer id, boolean enabled) {
+        productRepository.updateEnabledStatus(id, enabled);
     }
 }
