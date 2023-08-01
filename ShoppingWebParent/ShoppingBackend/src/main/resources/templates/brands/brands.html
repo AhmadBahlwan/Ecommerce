@@ -10,9 +10,11 @@
     &nbsp;&nbsp;
     <a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
   </div>
-  <div th:replace="fragments :: message"></div>
+
 
   <div th:replace="fragments :: search_form_and_message('/brands/page/1')"></div>
+
+  <div th:replace="fragments :: message"></div>
 
   <div class="table-responsive full-details">
     <table class="table table-bordered table-striped table-hover">
