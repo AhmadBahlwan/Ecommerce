@@ -167,7 +167,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public void updateUserEnabledStatus(Integer id, boolean enabled) {
+    public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
         categoryRepository.updateEnabledStatus(id, enabled);
     }
 }

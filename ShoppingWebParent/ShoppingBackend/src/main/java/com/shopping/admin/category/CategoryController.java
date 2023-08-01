@@ -2,7 +2,6 @@ package com.shopping.admin.category;
 
 
 import com.shopping.admin.FileUploadUtil;
-import com.shopping.admin.user.UserService;
 import com.shopping.library.entity.Category;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,11 +110,11 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}/enabled/{enabled}")
-    public String updateUserEnabledStatus(@PathVariable Integer id,
-                                          @PathVariable boolean enabled,
-                                          RedirectAttributes redirectAttributes) {
+    public String updateCategoryEnabledStatus(@PathVariable Integer id,
+                                              @PathVariable boolean enabled,
+                                              RedirectAttributes redirectAttributes) {
 
-        categoryService.updateUserEnabledStatus(id, enabled);
+        categoryService.updateCategoryEnabledStatus(id, enabled);
         String status =  enabled ? "enabled" : "disabled";
         String message = "The category ID " + id + " has been " + status + " successfully";
         redirectAttributes.addFlashAttribute("message", message);
