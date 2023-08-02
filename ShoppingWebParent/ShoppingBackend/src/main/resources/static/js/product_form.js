@@ -92,7 +92,7 @@ function checkUnique(form) {
 
 	params = {id: productId, name: productName, _csrf: csrfValue};
 
-	$.post(url, params, function(response) {
+	$.post(checkUniqueUrl, params, function(response) {
 		if (response == "OK") {
 			form.submit();
 		} else if (response == "Duplicate") {
