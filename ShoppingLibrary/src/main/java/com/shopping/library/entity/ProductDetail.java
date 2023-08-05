@@ -28,6 +28,14 @@ public class ProductDetail {
         this.product = product;
     }
 
+    public ProductDetail(Integer id, String name, String value, Product product) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.product = product;
+    }
+
     public Integer getId() {
         return id;
     }

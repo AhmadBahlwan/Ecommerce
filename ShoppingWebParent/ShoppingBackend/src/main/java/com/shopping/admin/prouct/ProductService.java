@@ -9,6 +9,7 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -60,5 +61,13 @@ public class ProductService {
         }
 
         productRepository.deleteById(id);
+    }
+
+    public Product get(Integer id) throws ProductNotFoundException {
+        try {
+            return productRepository.findById(id).get();
+        } catch (NoSuchElementException ex) {
+            throw new ProductNotFoundException("Could not find any product with ID " + id);
+        }
     }
 }

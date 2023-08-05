@@ -14,8 +14,22 @@ $(document).ready(function() {
 
 });
 
+$("[id^='linkRemoveExtraImage']").each(function(index) {
+    $(this).click(function() {
+        removeExtraImage(index);
+    });
+});
+
+
+
 function showExtraImageThumbnail(fileInput, index) {
 	var file = fileInput.files[0];
+	fileName = file.name;
+
+   mageNameHiddenField = $("#imageName" + index);
+   if (imageNameHiddenField.length) {
+   		imageNameHiddenField.val(fileName);
+   }
 	var reader = new FileReader();
 	reader.onload = function(e) {
 		$("#extraThumbnail" + index).attr("src", e.target.result);
