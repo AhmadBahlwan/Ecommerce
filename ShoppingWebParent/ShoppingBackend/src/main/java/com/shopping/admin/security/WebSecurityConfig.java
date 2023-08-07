@@ -33,7 +33,10 @@ public class WebSecurityConfig {
            auth.requestMatchers("/users/**").hasAuthority("Admin");
            auth.requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor");
            auth.requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor");
-           auth.requestMatchers("/products/**").hasAnyAuthority("Admin", "SalesPerson", "Editor", "Shipper");
+           auth.requestMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor");
+           auth.requestMatchers("/products/edit/**", "/products/save", "/products/check_unique").hasAnyAuthority("Admin", "Editor", "Salesperson");
+           auth.requestMatchers("/products", "/products/detail/**", "/products/page/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper");
+           auth.requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor");
            auth.requestMatchers("/questions/**").hasAnyAuthority("Admin", "Assistant");
            auth.requestMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant");
            auth.requestMatchers("/customers/**").hasAnyAuthority("Admin", "SalesPerson");

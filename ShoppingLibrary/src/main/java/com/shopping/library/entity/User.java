@@ -3,6 +3,7 @@ package com.shopping.library.entity;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -135,5 +136,9 @@ public class User {
     @Transient
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public boolean hasRole(String roleName) {
+        return roles.stream().anyMatch(role -> role.getName().equals(roleName));
     }
 }

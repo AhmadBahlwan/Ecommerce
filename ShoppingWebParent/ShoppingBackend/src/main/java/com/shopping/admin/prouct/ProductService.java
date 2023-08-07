@@ -28,17 +28,26 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+    public Page<Product> listByPage(int pageNum, String sortField, String sortDir,
+                                    String keyword, Integer categoryId) {
         Sort sort = Sort.by(sortField);
 
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 
-        if (keyword != null) {
+        if (keyword != null && !keyword.isEmpty()) {
+            if (categoryId != null && categoryId > 0) {
+                String categoryIdMatch = "-" + categoryId + "-";
+                return productRepository.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+            }
+
             return productRepository.findAll(keyword, pageable);
         }
-
+        if (categoryId != null && categoryId > 0) {
+            String categoryIdMatch = "-" + categoryId + "-";
+            return productRepository.findAllInCategory(categoryId, categoryIdMatch, pageable);
+        }
         return productRepository.findAll(pageable);
     }
 
@@ -57,6 +66,15 @@ public class ProductService {
         product.setUpdatedTime(new Date());
 
         return productRepository.save(product);
+    }
+
+    public void saveProductPrice(Product productInForm) {
+        Product productInDB = productRepository.findById(productInForm.getId()).get();
+        productInDB.setCost(productInForm.getCost());
+        productInDB.setPrice(productInForm.getPrice());
+        productInDB.setDiscountPercent(productInForm.getDiscountPercent());
+
+        productRepository.save(productInDB);
     }
 
     public boolean isNameUnique(Integer id, String name) {

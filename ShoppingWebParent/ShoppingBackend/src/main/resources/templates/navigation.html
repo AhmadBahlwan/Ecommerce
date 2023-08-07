@@ -27,22 +27,22 @@
             <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor')">
                 <a class="nav-link" th:href="@{/brands}">Brands</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'SalesPerson', 'Editor', 'Shipper')">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
                 <a class="nav-link" th:href="@{/products}">Products</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'SalesPerson')">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                 <a class="nav-link" th:href="@{/customers}">Customers</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'SalesPerson')">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                 <a class="nav-link" th:href="@{/shipping}">Shipping</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'SalesPerson', 'Shipper')">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper')">
                 <a class="nav-link" th:href="@{/orders}">Orders</a>
             </li>
             <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor')">
                 <a class="nav-link" th:href="@{/articles}">Articles</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'SalesPerson')">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                 <a class="nav-link" th:href="@{/reports}">Reports</a>
             </li>
             <li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor')">
