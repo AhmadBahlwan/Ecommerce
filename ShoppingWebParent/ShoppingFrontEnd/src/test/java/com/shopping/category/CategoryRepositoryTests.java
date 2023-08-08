@@ -21,4 +21,12 @@ public class CategoryRepositoryTests {
         List<Category> categories = repo.findAllByEnabledTrueOrderByNameAsc();
         categories.forEach(category -> assertThat(category.isEnabled()).isTrue());
     }
+
+    @Test
+    public void testFindCategoryByAlias() {
+        String alias = "electronics";
+        Category category = repo.findByAliasAndEnabledTrue(alias);
+
+        assertThat(category).isNotNull();
+    }
 }
