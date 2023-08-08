@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shopping Admin Control Panel</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Shopping', 'none')" />
 <body>
-<h1>welcome to Shopping Admin Control Panel</h1>
+<div class="container-fluid">
+    <div th:replace="navigation :: header_menu"></div>
+    <div>
+        <h1>Welcome to Shopping eCommerce</h1>
+    </div>
+
+    <div th:replace="navigation :: footer_menu"></div>
+</div>
 </body>
 </html>
