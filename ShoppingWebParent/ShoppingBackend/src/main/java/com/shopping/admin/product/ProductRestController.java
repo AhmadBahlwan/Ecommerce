@@ -1,4 +1,4 @@
-package com.shopping.admin.prouct;
+package com.shopping.admin.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

@@ -1,7 +1,7 @@
-package com.shopping.admin.prouct;
+package com.shopping.admin.product;
 
-import com.shopping.admin.brand.BrandNotFoundException;
 import com.shopping.library.entity.Product;
+import com.shopping.library.exception.ProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

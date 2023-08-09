@@ -1,4 +1,4 @@
-package com.shopping.admin.prouct;
+package com.shopping.library.exception;
 
 public class ProductNotFoundException extends Exception {
 

@@ -3,6 +3,7 @@ package com.shopping.admin.category;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.library.entity.Category;
+import com.shopping.library.exception.CategoryNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

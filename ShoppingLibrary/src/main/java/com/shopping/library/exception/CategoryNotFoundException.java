@@ -1,4 +1,4 @@
-package com.shopping.admin.category;
+package com.shopping.library.exception;
 
 public class CategoryNotFoundException extends Exception{
 

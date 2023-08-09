@@ -1,6 +1,7 @@
 package com.shopping.category;
 
 import com.shopping.library.entity.Category;
+import com.shopping.library.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,13 @@ public class CategoryService {
         return listNoChildrenCategories;
     }
 
-    public Category getCategory(String alias) {
-        return categoryRepository.findByAliasAndEnabledTrue(alias);
+    public Category getCategory(String alias) throws CategoryNotFoundException {
+        Category category = categoryRepository.findByAliasAndEnabledTrue(alias);
+        if (category == null) {
+            throw new CategoryNotFoundException("Could not find any categories with alias " + alias);
+        }
+
+        return category;
     }
 
     public List<Category> getCategoryParents(Category child) {

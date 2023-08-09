@@ -1,6 +1,7 @@
 package com.shopping.product;
 
 import com.shopping.library.entity.Product;
+import com.shopping.library.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,8 @@ import java.util.List;
 public class ProductService {
     public static final int PRODUCTS_PER_PAGE = 10;
 
-    @Autowired private ProductRepository repo;
+    @Autowired
+    private ProductRepository repo;
 
     public Page<Product> listByCategory(int pageNum, Integer categoryId) {
         String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
@@ -23,5 +25,14 @@ public class ProductService {
 
         return repo.listByCategory(categoryId, categoryIdMatch, pageable);
 
+    }
+
+    public Product getProduct(String alias) throws ProductNotFoundException {
+        Product product = repo.findByAlias(alias);
+        if (product == null) {
+            throw new ProductNotFoundException("Could not find any product with alias " + alias);
+        }
+
+        return product;
     }
 }

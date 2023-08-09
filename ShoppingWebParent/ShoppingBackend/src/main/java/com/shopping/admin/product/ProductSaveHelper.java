@@ -1,4 +1,4 @@
-package com.shopping.admin.prouct;
+package com.shopping.admin.product;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.library.entity.Product;
