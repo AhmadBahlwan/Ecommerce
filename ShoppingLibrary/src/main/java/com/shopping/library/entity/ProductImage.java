@@ -1,6 +1,5 @@
 package com.shopping.library.entity;
 
-import com.shopping.library.entity.Product;
 import jakarta.persistence.*;
 
 @Entity
