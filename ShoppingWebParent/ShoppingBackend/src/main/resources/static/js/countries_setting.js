@@ -111,7 +111,8 @@ function addCountry() {
 
 function selectNewlyAddedCountry(countryId, countryCode, countryName) {
 	optionValue = countryId + "-" + countryCode;
-	$("<option>").val(optionValue).text(countryName).appendTo(dropDownCountry);
+	$("<option>").val(optionValue).text(countryName)
+	.appendTo(dropDownCountry);
 
 	$("#dropDownCountries option[value='" + optionValue + "']").prop("selected", true);
 
@@ -152,7 +153,14 @@ function loadCountries() {
 
 		$.each(responseJSON, function(index, country) {
 			optionValue = country.id + "-" + country.code;
-			$("<option>").val(optionValue).text(country.name).appendTo(dropDownCountry);
+			$("<option>").val(optionValue).text(country.name)
+			.css({
+			   'font-size': '10px',
+               'padding': '5px',
+               'height': '20px',
+               'text-align': 'left'
+			})
+			.appendTo(dropDownCountry);
 		});
 
 	}).done(function() {
