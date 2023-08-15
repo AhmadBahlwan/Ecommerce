@@ -51,10 +51,15 @@ function deleteState() {
 
 	url = contextPath + "states/delete/" + stateId;
 
-	$.get(url, function() {
+	$.ajax({
+		type: 'DELETE',
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		}
+	}).done(function() {
 		$("#dropDownStates option[value='" + stateId + "']").remove();
 		changeFormStateToNew();
-	}).done(function() {
 		showToastMessage("The state has been deleted");
 	}).fail(function() {
 		showToastMessage("ERROR: Could not connect to server or server encountered an error");
@@ -147,12 +152,12 @@ function changeFormStateToSelectedState() {
 }
 
 function loadStates4Country() {
-    selectedCountry = $("#dropDownCountriesForStates option:selected");
-    countryId = selectedCountry.val();
-    url = contextPath + "states/list_by_country/" + countryId;
+	selectedCountry = $("#dropDownCountriesForStates option:selected");
+	countryId = selectedCountry.val();
+	url = contextPath + "states/list_by_country/" + countryId;
 
-    $.get(url, function(responseJSON) {
-        dropDownStates.empty();
+	$.get(url, function(responseJSON) {
+		dropDownStates.empty();
 
         $.each(responseJSON, function(index, state) {
             $("<option>")
@@ -167,12 +172,12 @@ function loadStates4Country() {
                 .appendTo(dropDownStates);
         });
 
-    }).done(function() {
-        changeFormStateToNew();
-        showToastMessage("All states have been loaded for country " + selectedCountry.text());
-    }).fail(function() {
-        showToastMessage("ERROR: Could not connect to server or server encountered an error");
-    });
+	}).done(function() {
+		changeFormStateToNew();
+		showToastMessage("All states have been loaded for country " + selectedCountry.text());
+	}).fail(function() {
+		showToastMessage("ERROR: Could not connect to server or server encountered an error");
+	});
 }
 
 

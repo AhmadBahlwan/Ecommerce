@@ -30,7 +30,7 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(auth-> {
            auth.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll();
-           auth.requestMatchers("/users/**").hasAuthority("Admin");
+           auth.requestMatchers("/users/**", "/settings/**","/countries/**","/states/**").hasAuthority("Admin");
            auth.requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor");
            auth.requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor");
            auth.requestMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor");

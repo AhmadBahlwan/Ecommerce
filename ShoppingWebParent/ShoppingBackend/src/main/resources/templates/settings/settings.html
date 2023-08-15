@@ -33,6 +33,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#mailTemplate" role="tab">Mail Templates</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#payment" role="tab">Payment</a>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -42,7 +45,7 @@
             <div class="tab-pane" id="countries" role="tabpanel">
                 <div th:replace="settings/countries :: content"></div>
             </div>
-            <div class="tab-pane p-3" id="states" role="tabpanel">
+            <div class="tab-pane" id="states" role="tabpanel">
                 <div th:replace="settings/states :: content"></div>
             </div>
             <div class="tab-pane p-3" id="mailServer" role="tabpanel">
@@ -51,14 +54,15 @@
             <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
                 <h2>Mail Templates</h2>
             </div>
+            <div class="tab-pane p-3" id="payment" role="tabpanel">
+                <h2>Payment</h2>
+            </div>
         </div>
     </div>
 
-    <div class="toast justify-content-center d-flex m-3" role="alert" aria-live="polite" aria-atomic="true" data-delay="3000" style="display: none;">
-        <div role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body">
-                <span id="toastMessage"></span>
-            </div>
+    <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body text-center">
+            <span id="toastMessage"></span>
         </div>
     </div>
 
