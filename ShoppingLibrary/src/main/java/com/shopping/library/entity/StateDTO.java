@@ -1,4 +1,4 @@
-package com.shopping.admin.setting.state;
+package com.shopping.library.entity;
 
 public class StateDTO {
     private Integer id;

@@ -1,6 +1,5 @@
-package com.shopping.admin;
+package com.shopping.customer;
 
-import com.shopping.admin.customer.CustomerRepository;
 import com.shopping.library.entity.Country;
 import com.shopping.library.entity.Customer;
 import org.junit.jupiter.api.Test;

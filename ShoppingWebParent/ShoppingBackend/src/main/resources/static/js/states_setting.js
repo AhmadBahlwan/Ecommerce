@@ -67,6 +67,8 @@ function deleteState() {
 }
 
 function updateState() {
+    if (!validateFormState()) return;
+
 	url = contextPath + "states/save";
 	stateId = dropDownStates.val();
 	stateName = fieldStateName.val();
@@ -95,6 +97,8 @@ function updateState() {
 }
 
 function addState() {
+    if (!validateFormState()) return;
+
 	url = contextPath + "states/save";
 	stateName = fieldStateName.val();
 
@@ -121,8 +125,25 @@ function addState() {
 
 }
 
+function validateFormState() {
+	formState = document.getElementById("formState");
+	if (!formState.checkValidity()) {
+		formState.reportValidity();
+		return false;
+	}
+
+	return true;
+}
+
 function selectNewlyAddedState(stateId, stateName) {
-	$("<option>").val(stateId).text(stateName).appendTo(dropDownStates);
+	$("<option>").val(stateId).text(stateName)
+	.css({
+        			   'font-size': '10px',
+                       'padding': '5px',
+                       'height': '20px',
+                       'text-align': 'left'
+        			})
+	.appendTo(dropDownStates);
 
 	$("#dropDownStates option[value='" + stateId + "']").prop("selected", true);
 
