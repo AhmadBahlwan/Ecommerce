@@ -47,7 +47,7 @@
             </th:block>
             <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                    th:href="@{/products}">Products</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" th:href="@{/products/new}"
@@ -75,7 +75,7 @@
                 <a class="nav-link" th:href="@{/menus}">Menus</a>
             </li>
             <li class="nav-item dropdown" sec:authorize="hasAuthority('Admin')">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                    th:href="@{/settings}">Settings</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" th:href="@{/settings#general}">General</a>

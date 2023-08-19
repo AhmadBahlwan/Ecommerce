@@ -30,7 +30,7 @@ public class Customer {
     @Column(nullable = false, length = 64)
     private String addressLine1;
 
-    @Column(name = "address_line_2", length = 64)
+    @Column(name = "address_line2", length = 64)
     private String addressLine2;
 
     @Column(nullable = false, length = 45)
