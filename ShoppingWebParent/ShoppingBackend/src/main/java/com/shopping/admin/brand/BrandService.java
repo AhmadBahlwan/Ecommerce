@@ -1,5 +1,6 @@
 package com.shopping.admin.brand;
 
+import com.shopping.admin.paging.PagingAndSortingHelper;
 import com.shopping.library.entity.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,16 +23,8 @@ public class BrandService {
         return brandRepository.findAll();
     }
 
-    public Page<Brand> listByPage(int pageNumber, String sortField, String sortDirection, String keyword) {
-        Sort sort = Sort.by(sortField);
-        sort = sortDirection.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, BRANDS_PER_PAGE, sort);
-
-        if (keyword != null) {
-            return brandRepository.findAll(keyword, pageable);
-        }
-
-        return brandRepository.findAll(pageable);
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, BRANDS_PER_PAGE, brandRepository);
     }
 
     public Brand save(Brand brand) {

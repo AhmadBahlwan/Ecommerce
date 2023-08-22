@@ -12,7 +12,7 @@
   </div>
 
 
-  <div th:replace="fragments :: search_form_and_message('/brands/page/1')"></div>
+  <div th:replace="fragments :: search_form_and_message"></div>
 
   <div th:replace="fragments :: message"></div>
 
@@ -23,14 +23,14 @@
 
         <th class="hideable-column">Brand ID</th>
         <th>Logo</th>
-        <th th:replace="fragments :: column_link('/brands', 'name', 'Brand Name', 'none')"></th>
+        <th th:replace="fragments :: column_link('name', 'Brand Name', 'none')"></th>
         <th>Categories</th>
         <th>Actions</th>
       </tr>
 
       </thead>
       <tbody>
-      <tr th:each="brand : ${brands}" class="text-center">
+      <tr th:each="brand : ${listBrands}" class="text-center">
         <td class="hideable-column">[[${brand.id}]]</td>
         <td>
           <img th:src="@{${brand.logoPath}}" style="width: 100px" class="img-fluid"/>
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div th:replace="fragments :: pagination('/brands', 'brands')"></div>
+  <div th:replace="fragments :: pagination('brands')"></div>
 
   <div th:replace="modal_fragment :: confirm_modal"></div>
 

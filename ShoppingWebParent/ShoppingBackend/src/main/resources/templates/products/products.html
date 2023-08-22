@@ -68,15 +68,15 @@
       <thead class="table-dark">
       <tr class="text-center">
         <th class="hideable-column">
-        <th th:replace="fragments :: column_link('/products', 'id', 'ID', 'tag')"></th>
+        <th th:replace="fragments :: column_link('id', 'ID', 'tag')"></th>
         </th>
         <th>MAIN IMAGE</th>
-        <th th:replace="fragments :: column_link('/products', 'name', 'Product Name', 'none')"></th>
+        <th th:replace="fragments :: column_link('name', 'Product Name', 'none')"></th>
         <th class="hideable-column">
-        <th th:replace="fragments :: column_link('/products', 'brand', 'Brand', 'tag')"></th>
+        <th th:replace="fragments :: column_link('brand', 'Brand', 'tag')"></th>
         </th>
         <th class="hideable-column">
-        <th th:replace="fragments :: column_link('/products', 'category', 'Category', 'tag')"></th>
+        <th th:replace="fragments :: column_link('category', 'Category', 'tag')"></th>
         </th>
         <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
         <th>ENABLED</th>
@@ -161,7 +161,7 @@
     </div>
   </div>
 
-  <div th:replace="fragments :: pagination('/products', 'products')"></div>
+  <div th:replace="fragments :: pagination('products')"></div>
 
   <div th:replace="modal_fragment :: confirm_modal"></div>
 

@@ -2,6 +2,8 @@ package com.shopping.admin.brand;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.admin.category.CategoryService;
+import com.shopping.admin.paging.PagingAndSortingHelper;
+import com.shopping.admin.paging.PagingAndSortingParam;
 import com.shopping.admin.user.UserService;
 import com.shopping.library.entity.Brand;
 import com.shopping.library.entity.Category;
@@ -23,41 +25,21 @@ import java.util.List;
 
 @Controller
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
-
-    @Autowired
-    private CategoryService categoryService;
-
+    private String defaultRedirectURL = "redirect:/brands/page/1?sortField=name&sortDirection=asc";
+    @Autowired private BrandService brandService;
+    @Autowired private CategoryService categoryService;
 
     @GetMapping("/brands")
-    public String listFirstPage(Model model) {
-        return listByPage(1, model, "name", "asc", null);
+    public String listFirstPage() {
+        return defaultRedirectURL;
     }
 
-    @GetMapping("/brands/page/{pageNumber}")
-    public String listByPage(@PathVariable int pageNumber, Model model, @Param("sortField") String sortField,
-                             @Param("sortDirection") String sortDirection, @Param("keyword") String keyword) {
-        Page<Brand> page = brandService.listByPage(pageNumber, sortField, sortDirection, keyword);
-        List<Brand> brands = page.getContent();
-        long startCount = (long) (pageNumber - 1) * BrandService.BRANDS_PER_PAGE + 1;
-        long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1;
-        if (endCount > page.getTotalElements())
-            endCount = page.getTotalElements();
-
-        String reversedSortDir = sortDirection.equals("asc") ? "desc" : "asc";
-
-        model.addAttribute("brands", brands);
-        model.addAttribute("startCount", startCount);
-        model.addAttribute("endCount", endCount);
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalElements", page.getTotalElements());
-        model.addAttribute("sortDirection", sortDirection);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("reversedSortDir", reversedSortDir);
-        model.addAttribute("keyword", keyword);
-
+    @GetMapping("/brands/page/{pageNum}")
+    public String listByPage(
+            @PagingAndSortingParam(listName = "listBrands", moduleURL = "/brands") PagingAndSortingHelper helper,
+            @PathVariable(name = "pageNum") int pageNum
+    ) {
+        brandService.listByPage(pageNum, helper);
         return "brands/brands";
     }
 
@@ -74,7 +56,7 @@ public class BrandController {
 
     @PostMapping("/brands/save")
     public String saveBrand(Brand brand, @RequestParam("fileImage") MultipartFile multipartFile,
-                            RedirectAttributes redirectAttributes) throws IOException {
+                            RedirectAttributes ra) throws IOException {
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             brand.setLogo(fileName);
@@ -87,8 +69,9 @@ public class BrandController {
         } else {
             brandService.save(brand);
         }
-        redirectAttributes.addFlashAttribute("message", "The brand has been saved successfully");
-        return "redirect:/brands";
+
+        ra.addFlashAttribute("message", "The brand has been saved successfully.");
+        return defaultRedirectURL;
     }
 
     @GetMapping("/brands/edit/{id}")
@@ -105,7 +88,7 @@ public class BrandController {
             return "brands/brand_form";
         } catch (BrandNotFoundException ex) {
             ra.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/brands";
+            return defaultRedirectURL;
         }
     }
 
@@ -123,7 +106,6 @@ public class BrandController {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }
 
-        return "redirect:/brands";
+        return defaultRedirectURL;
     }
-
 }

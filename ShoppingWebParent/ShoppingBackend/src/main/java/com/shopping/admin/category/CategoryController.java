@@ -64,6 +64,7 @@ public class CategoryController {
         model.addAttribute("sortField", "name");
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("moduleURL", "/categories");
 
         return "categories/categories";
     }

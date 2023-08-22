@@ -1,12 +1,10 @@
 package com.shopping.admin.user;
 
+import com.shopping.admin.paging.PagingAndSortingHelper;
 import com.shopping.library.entity.Role;
 import com.shopping.library.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,16 +29,8 @@ public class UserService {
         return userRepository.findAll(Sort.by("firstName").ascending());
     }
 
-    public Page<User> getByPage(int pageNumber, String sortField, String sortDirection, String keyword) {
-        Sort sort = Sort.by(sortField);
-        sort = sortDirection.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, USERS_PER_PAGE, sort);
-
-        if (keyword != null) {
-            return userRepository.findAll(keyword, pageable);
-        }
-
-        return userRepository.findAll(pageable);
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, USERS_PER_PAGE, userRepository);
     }
 
     public User getByEmail(String email) {
