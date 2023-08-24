@@ -1,5 +1,6 @@
 package com.shopping.customer;
 
+import com.shopping.library.entity.AuthenticationType;
 import com.shopping.library.entity.Country;
 import com.shopping.library.entity.Customer;
 import org.junit.jupiter.api.Test;
@@ -139,5 +140,15 @@ public class CustomerRepositoryTests {
 
         Customer customer = repo.findById(customerId).get();
         assertThat(customer.isEnabled()).isTrue();
+    }
+
+    @Test
+    public void testUpdateAuthenticationType() {
+        Integer id = 1;
+        repo.updateAuthenticationType(id, AuthenticationType.FACEBOOK);
+
+        Customer customer = repo.findById(id).get();
+
+        assertThat(customer.getAuthenticationType()).isEqualTo(AuthenticationType.FACEBOOK);
     }
 }

@@ -1,0 +1,28 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /Shopping
+spring:
+  datasource:
+    password: mm
+    url: jdbc:mysql://localhost:3306/shoppingdb
+    username: mm
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 56058875305-q4a5ptfu1lgflo47j7v4l0norm8ohuak.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
