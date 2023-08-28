@@ -54,6 +54,11 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    @Transient
+    public float getSubtotal() {
+        return product.getDiscountPrice() * quantity;
+    }
+
     @Override
     public String toString() {
         return "CartItem [id=" + id + ", customer=" + customer.getFullName() + ", product=" + product.getShortName() + ", quantity=" + quantity
