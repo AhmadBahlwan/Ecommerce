@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +39,8 @@ public class WebSecurityConfig {
             oauth.loginPage("/login").userInfoEndpoint(service -> service.userService(oAuth2UserService));
             oauth.successHandler(oauth2LoginHandler);
         });
+
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
         http.logout(LogoutConfigurer::permitAll);
         http.rememberMe(rem -> rem.key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ")

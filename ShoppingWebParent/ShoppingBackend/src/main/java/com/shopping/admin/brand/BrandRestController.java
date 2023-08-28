@@ -20,7 +20,7 @@ public class BrandRestController {
     private BrandService brandService;
 
     @PostMapping("/brands/check-name")
-    public String checkDuplicationName(@Param("id") Integer id, @Param("name") String name) {
+    public String checkDuplicationName(Integer id, String name) {
         return brandService.isNameUnique(id, name) ? "OK" : "Duplicated";
     }
 
