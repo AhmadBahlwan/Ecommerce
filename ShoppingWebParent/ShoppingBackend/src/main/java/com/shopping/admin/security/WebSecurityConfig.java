@@ -41,7 +41,7 @@ public class WebSecurityConfig {
            auth.requestMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant");
            auth.requestMatchers("/customers/**").hasAnyAuthority("Admin", "SalesPerson");
            auth.requestMatchers("/shipping/**").hasAnyAuthority("Admin", "SalesPerson");
-           auth.requestMatchers("/orders/**").hasAnyAuthority("Admin", "SalesPerson", "Shipper");
+           auth.requestMatchers("/orders/**").hasAnyAuthority("Admin", "SalesPerson");
            auth.requestMatchers("/reports/**").hasAnyAuthority("Admin", "SalesPerson");
            auth.requestMatchers("/articles/**").hasAnyAuthority("Admin", "Editor");
            auth.requestMatchers("/menus/**").hasAnyAuthority("Admin", "Editor");
