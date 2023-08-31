@@ -2,7 +2,7 @@ package com.shopping.shoppingcart;
 
 import com.shopping.library.entity.CartItem;
 import com.shopping.library.entity.Customer;
-import com.shopping.library.entity.Product;
+import com.shopping.library.entity.product.Product;
 import com.shopping.product.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

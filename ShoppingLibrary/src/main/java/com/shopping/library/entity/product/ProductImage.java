@@ -1,14 +1,11 @@
-package com.shopping.library.entity;
+package com.shopping.library.entity.product;
 
+import com.shopping.library.entity.IdBasedEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "product_images")
-public class ProductImage {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class ProductImage extends IdBasedEntity {
 
     @Column(nullable = false)
     private String name;
@@ -29,14 +26,6 @@ public class ProductImage {
         this.id = id;
         this.name = name;
         this.product = product;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -3,7 +3,7 @@ package com.shopping.admin.setting;
 
 import com.shopping.admin.FileUploadUtil;
 import com.shopping.library.entity.Currency;
-import com.shopping.library.entity.Setting;
+import com.shopping.library.entity.setting.Setting;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

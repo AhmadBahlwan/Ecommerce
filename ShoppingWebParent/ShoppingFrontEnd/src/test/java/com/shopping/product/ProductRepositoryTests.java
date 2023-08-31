@@ -1,7 +1,7 @@
 package com.shopping.product;
 
 
-import com.shopping.library.entity.Product;
+import com.shopping.library.entity.product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

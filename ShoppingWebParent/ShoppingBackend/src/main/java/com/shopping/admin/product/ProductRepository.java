@@ -1,6 +1,6 @@
 package com.shopping.admin.product;
 
-import com.shopping.library.entity.Product;
+import com.shopping.library.entity.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

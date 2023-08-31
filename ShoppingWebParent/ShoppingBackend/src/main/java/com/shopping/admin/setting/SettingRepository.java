@@ -1,7 +1,7 @@
 package com.shopping.admin.setting;
 
-import com.shopping.library.entity.Setting;
-import com.shopping.library.entity.SettingCategory;
+import com.shopping.library.entity.setting.Setting;
+import com.shopping.library.entity.setting.SettingCategory;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

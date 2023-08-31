@@ -1,6 +1,6 @@
 package com.shopping.setting;
 
-import com.shopping.library.entity.Setting;
+import com.shopping.library.entity.setting.Setting;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

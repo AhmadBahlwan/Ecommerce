@@ -1,4 +1,4 @@
-package com.shopping.library.entity;
+package com.shopping.library.entity.setting;
 
 import java.util.List;
 

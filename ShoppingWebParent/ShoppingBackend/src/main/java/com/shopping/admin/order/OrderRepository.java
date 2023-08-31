@@ -1,7 +1,7 @@
 package com.shopping.admin.order;
 
 import com.shopping.admin.paging.SearchRepository;
-import com.shopping.library.entity.Order;
+import com.shopping.library.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

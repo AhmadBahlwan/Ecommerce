@@ -1,13 +1,12 @@
-package com.shopping.library.entity;
+package com.shopping.library.entity.order;
 
+import com.shopping.library.entity.IdBasedEntity;
+import com.shopping.library.entity.product.Product;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "order_details")
-public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class OrderDetail extends IdBasedEntity {
 
     private int quantity;
     private float productCost;
@@ -23,13 +22,6 @@ public class OrderDetail {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public int getQuantity() {
         return quantity;

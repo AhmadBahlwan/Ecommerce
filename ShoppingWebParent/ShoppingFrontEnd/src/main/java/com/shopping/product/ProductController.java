@@ -2,12 +2,11 @@ package com.shopping.product;
 
 import com.shopping.category.CategoryService;
 import com.shopping.library.entity.Category;
-import com.shopping.library.entity.Product;
+import com.shopping.library.entity.product.Product;
 import com.shopping.library.exception.CategoryNotFoundException;
 import com.shopping.library.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

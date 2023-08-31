@@ -2,6 +2,11 @@ package com.shopping.admin.order;
 
 
 import com.shopping.library.entity.*;
+import com.shopping.library.entity.order.Order;
+import com.shopping.library.entity.order.OrderDetail;
+import com.shopping.library.entity.order.OrderStatus;
+import com.shopping.library.entity.order.PaymentMethod;
+import com.shopping.library.entity.product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
