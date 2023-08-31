@@ -17,6 +17,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
     Product findByAlias(String alias);
 
+    /**You should create fulltext index in order to use match function*/
     @Query(value = "SELECT * FROM products WHERE enabled = true AND "
             + "MATCH(name, short_description, full_description) AGAINST (?1)",
             nativeQuery = true)
