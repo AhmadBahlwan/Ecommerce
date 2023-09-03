@@ -1,6 +1,7 @@
 package com.shopping.library.entity.order;
 
 import com.shopping.library.entity.AbstractAddress;
+import com.shopping.library.entity.Address;
 import com.shopping.library.entity.Customer;
 import jakarta.persistence.*;
 
@@ -167,6 +168,18 @@ public class Order extends AbstractAddress {
         destination += country;
 
         return destination;
+    }
+
+    public void copyShippingAddress(Address address) {
+        setFirstName(address.getFirstName());
+        setLastName(address.getLastName());
+        setPhoneNumber(address.getPhoneNumber());
+        setAddressLine1(address.getAddressLine1());
+        setAddressLine2(address.getAddressLine2());
+        setCity(address.getCity());
+        setCountry(address.getCountry().getName());
+        setPostalCode(address.getPostalCode());
+        setState(address.getState());
     }
 
 
