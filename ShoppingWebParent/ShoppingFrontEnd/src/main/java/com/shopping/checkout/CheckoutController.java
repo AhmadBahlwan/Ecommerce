@@ -13,6 +13,7 @@ import com.shopping.library.entity.order.PaymentMethod;
 import com.shopping.order.OrderService;
 import com.shopping.setting.CurrencySettingBag;
 import com.shopping.setting.EmailSettingBag;
+import com.shopping.setting.PaymentSettingBag;
 import com.shopping.setting.SettingService;
 import com.shopping.shipping.ShippingRateService;
 import com.shopping.shoppingcart.ShoppingCartService;
@@ -65,6 +66,14 @@ public class CheckoutController {
 
         List<CartItem> cartItems = cartService.listCartItems(customer);
         CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
+
+        String currencyCode = settingService.getCurrencyCode();
+        PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
+        String paypalClientId = paymentSettings.getClientID();
+
+        model.addAttribute("paypalClientId", paypalClientId);
+        model.addAttribute("currencyCode", currencyCode);
+        model.addAttribute("customer", customer);
 
         model.addAttribute("checkoutInfo", checkoutInfo);
         model.addAttribute("cartItems", cartItems);

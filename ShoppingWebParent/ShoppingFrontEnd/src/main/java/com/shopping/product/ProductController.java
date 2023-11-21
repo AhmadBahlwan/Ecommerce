@@ -89,7 +89,7 @@ public class ProductController {
         Page<Product> pageProducts = productService.search(keyword, pageNum);
         List<Product> listResult = pageProducts.getContent();
 
-        long startCount = (pageNum - 1) * ProductService.SEARCH_RESULTS_PER_PAGE + 1;
+        long startCount = (long) (pageNum - 1) * ProductService.SEARCH_RESULTS_PER_PAGE + 1;
         long endCount = startCount + ProductService.SEARCH_RESULTS_PER_PAGE - 1;
         if (endCount > pageProducts.getTotalElements()) {
             endCount = pageProducts.getTotalElements();
