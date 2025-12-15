@@ -5,9 +5,7 @@ import com.shopping.library.entity.Address;
 import com.shopping.library.entity.Customer;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "orders")
@@ -38,6 +36,9 @@ public class Order extends AbstractAddress {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new HashSet<>();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderTrack> orderTracks = new ArrayList<>();
 
     public String getCountry() {
         return country;
@@ -141,6 +142,14 @@ public class Order extends AbstractAddress {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public List<OrderTrack> getOrderTracks() {
+        return orderTracks;
+    }
+
+    public void setOrderTracks(List<OrderTrack> orderTracks) {
+        this.orderTracks = orderTracks;
     }
 
     public void copyAddressFromCustomer() {
